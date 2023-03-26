@@ -1,5 +1,6 @@
 package com.srijan.blog.sbblogapp.payloads;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class UserDto {
 
     @NotEmpty
     @Size(min = 3, max = 10,message = "Password must be min 3 chars and max of 10 chars!!")
+    @JsonIgnore
 //    @Pattern(regexp = "")  // For Regular Expression
     private String password;
 

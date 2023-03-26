@@ -49,4 +49,11 @@ public class GlobalExceptionHandler {
         resp.put("message", message);
         return new ResponseEntity<>(resp, HttpStatus.PAYLOAD_TOO_LARGE);
     }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<ApiResponse> handleCustomApiException(CustomApiException ex){
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message, true);
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
 }
