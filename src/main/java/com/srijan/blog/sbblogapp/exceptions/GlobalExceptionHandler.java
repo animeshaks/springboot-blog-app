@@ -8,6 +8,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,5 +40,13 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
         resp.put("message", message);
         return new ResponseEntity<>(resp, HttpStatus.BAD_GATEWAY);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Map<String, String>> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException ex){
+        Map<String, String> resp = new HashMap<>();
+        String message = ex.getMessage().split(";")[0];
+        resp.put("message", message);
+        return new ResponseEntity<>(resp, HttpStatus.PAYLOAD_TOO_LARGE);
     }
 }
