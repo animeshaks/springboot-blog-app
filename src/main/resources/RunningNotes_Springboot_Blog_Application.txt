@@ -1,0 +1,116 @@
+Springboot Blog Application
+
+	Architecture Used:
+		Client-Server-Architecture
+
+		Best Architecture while using Springbot for backend(Layred  Architecture)
+
+		Client(Postman) --- Req/Resp --- Controllers(API Layer) <-> Services(Business Logic) <-> Repositories(DAO Layer) ----- Database
+
+
+	Resources:
+		User
+		Post
+		Comments
+		Category
+		Role
+
+	Softwares:
+		- JAVA 8+
+		- IDE (IntelliJ Idea, STS, Eclipse etc.)
+		- MySQL Workbench
+
+	Steps for coding setup:
+
+	-> Initialize Spring project with following dependencies: JPA, WEB, DEV Tools, Lombok, MySQL Driver
+	-> Import in IDE(IntelliJ Idea)
+	-> Create following packages under src folder: config, controllers, entities, exceptions, payloads, repositories, services, utils
+	-> Set db and other hibernate, jpa related property in application.properties file
+
+	-> Start working on User Resource
+		> Create User Entity under entities folder
+		> Create User Repository under repositories folder (public interface UserRepository extends JpaRepository<User, Integer>)
+		> Create User Service under services folder
+			- Create UserDto under payloads folder
+			- Declare all functions for User Resource: create, getById, getAll, update, delete
+			- create impl package under Services for implementations of above functions
+			- Write transformers entityToView and vice-versa
+			- Write code for Create
+			- Write code for Exception(ResourceNotFoundException)
+			- Complete all implementation
+
+		> Create UserController
+			- Create User API 
+			- Update User API
+			- Delete User API
+			- Get All User API
+			- Get User By Id API
+
+		> Global Exception Handler
+		> Modal Mapper
+		> Validation of fields (Java bean validation)
+			- Step1: Add dependency
+			- Step2: Use annotation to validate fields
+			- Step3: Write Global Exception Handler for MethodArgumentNotValidException
+			- Step4: Use @Valid infront of @RequestBody annotation in controller
+
+			- @Email --> Isme .com wali chiz nahi check hoti to we can use @Pattern and put regular expression
+
+		> Category APIS(End to end)
+
+		> Post APIS(end to end)
+			- Join/Mapping
+			- Search by User/Category
+			- Pagination in getAllPosts() -- {By default page Number starts with zero}
+			- Modify Post response for pagination details 
+			- SortBy, SortDirection in Pagination (SORTING IMPLEMENTATION)
+			- Searching Implementation
+				. In Repository we can user List<T>findByTitleContaining(String title) method, where Title is field name where you want to implement searching.
+			- Best Practices
+				. Use Constant files to used hardcoded values
+			- Image Upload in Post
+
+		> Comment APIs
+			- Create API
+			- Delete API
+			- Get through Post API only!
+
+		> Securing APIs through Spring security
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+			</dependency>
+
+			- By default springboot provides form based authentication(Need to pass username and password in form)
+
+			- We changed form based auth to Basic auth which will accept the username and password through Authorization tab/JavaScript Prompt
+
+			- Authentication through database
+
+			- JWT Authentication
+
+				(Steps to implement JWT authentication)
+
+				1. Add Dependency(io.jsonwebtoken)
+				2. Create JWTAuthenticationEntryPoint implements AuthenticationEntryPoint // For Unauthorize access
+				3. Create JWTTokenHelper
+				4. JwtAuthenticationFilter extends OnceRequestFilter
+					. Get JWT token from request
+					. Validate Token
+					. Get User from token
+					. Load user associated with token
+					. Set spring security
+				5. Create JwtAuthResponse
+					. token (must)
+					. Any other details you want to add
+				6. Configure JWT in spring security config
+				7. Create Login API to return token
+				8. Test the application
+
+			- Register New User API
+			- Swagger Documentation
+
+
+
+
+
